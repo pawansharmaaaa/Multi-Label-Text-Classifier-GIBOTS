@@ -48,5 +48,5 @@ early_stopping = EarlyStopping(patience=10, restore_best_weights=True)
 model.fit(train_scaled, labels.values.astype(np.float32), epochs=no_of_epochs, batch_size=batch_size, validation_split=0.2, callbacks=[early_stopping])
 
 # Save model
-os.makedirs(os.path.join(CURR_DIR, "models"), exist_ok=True)
-model.save(os.path.join(CURR_DIR, 'models'))
+os.makedirs(os.path.join(CURR_DIR, "model"), exist_ok=True)
+model.save(os.path.join(CURR_DIR, 'model'))
