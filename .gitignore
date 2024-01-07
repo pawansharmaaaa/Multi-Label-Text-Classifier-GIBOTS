@@ -4,3 +4,5 @@ test.ipynb
 train_bkp.py
 train_opt.py
 *.h5
+*.keras
+train_fopt.py
