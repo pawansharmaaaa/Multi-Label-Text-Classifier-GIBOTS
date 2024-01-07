@@ -49,4 +49,4 @@ model.fit(train_scaled, labels.values.astype(np.float32), epochs=no_of_epochs, b
 
 # Save model
 os.makedirs(os.path.join(CURR_DIR, "models"), exist_ok=True)
-model.save(os.path.join(CURR_DIR, 'models', "model.keras"))
+model.save(os.path.join(CURR_DIR, 'models'))
