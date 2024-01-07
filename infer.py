@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 
-from keras.models import load_weights
+from keras.models import load_model
 
 # Model Directory
 CURR_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -10,7 +10,7 @@ MODEL_DIR = os.path.join(CURR_DIR, "model")
 PRO_DIR = os.path.join(CURR_DIR, "processed_data")
 
 # Load model
-model = load_weights(MODEL_DIR)
+model = load_model(MODEL_DIR)
 
 # Load test data
 test = pd.read_csv(os.path.join(PRO_DIR, "test.csv"))
