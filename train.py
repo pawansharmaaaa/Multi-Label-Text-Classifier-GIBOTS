@@ -1,24 +1,35 @@
-import numpy as np
+import os
 import pandas as pd
 
-"""
-Data:
-The text has been broken down into small groups of words called "nGrams" (like "the cat" or "running fast").
-These nGrams are lined up in a file called "Train.csv", with each row representing one nGram.
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
 
-Features:
+# Set working directory
+CURR_DIR = os.path.dirname(os.path.abspath(__file__))
+PRO_DIR = os.path.join(CURR_DIR, "processed_data")
 
-For each nGram, they've collected 145 pieces of information called "features".
-These features are like details that describe the nGram, such as:
-Content: A secret code representing the actual text.
-Parsing: What kind of nGram it is (numbers, letters, both).
-Spatial: Where it's located in the text and how long it is.
-Relational: What the text around it looks like.
-These features are saved in two files: "train.csv" and "test.csv".
-Labels:
+# MODEL HYPERPARAMETERS:
+no_of_epochs = 100
+batch_size = 100
 
-The "labels" are like tags or categories for each nGram.
-They tell you which groups the nGram might belong to.
-An nGram can belong to multiple groups, so it's a "multilabel" problem.
-"""
+# Read processed data:
 
+train = pd.read_csv(os.path.join(PRO_DIR, "train.csv"))
+test = pd.read_csv(os.path.join(PRO_DIR, "test.csv"))
+labels = pd.read_csv(os.path.join(PRO_DIR, "trainLabels.csv"))
+
+# Starting the model building process
+model = Sequential()
+model.add(Dense(5000, activation='relu', input_shape=(train.shape[1],)))
+model.add(Dense(2500, activation='relu'))
+model.add(Dense(1250, activation='relu'))
+model.add(Dense(625, activation='relu'))
+model.add(Dense(33, activation='sigmoid')) # Adapt output layer size for 33 labels
+
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+model.fit(train.values, labels.values, epochs=10, batch_size=100, verbose=1)
+
+# Save model
+os.makedirs(os.path.join(CURR_DIR, "models"), exist_ok=True)
+model.save(os.path.join(CURR_DIR, 'models', "model.h5"))

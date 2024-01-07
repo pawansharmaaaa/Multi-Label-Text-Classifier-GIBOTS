@@ -1,1 +1,6 @@
 .venv*
+*.png
+test.ipynb
+train_bkp.py
+train_opt.py
+models/*
