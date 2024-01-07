@@ -19,18 +19,17 @@ test_data = test.copy()
 
 # predict
 predictions = model.predict(test_data.values)
-
 prediction_arr = np.array(predictions)
 
+# Create submission file
 target = [str(int(num)) + '_y' + str(int(i)) for num in test.id for i in range(1, 34)]
-
 submission_df = pd.DataFrame(target, columns=['id'])
 
 prediction_list = [pred for sublist in prediction_arr.tolist() for pred in sublist]
-
 pred_df = pd.DataFrame(prediction_list, columns=['pred'])
 
 test_prediction_df = pd.concat([submission_df, pred_df], axis=1)
 
+# Save submission file
 os.makedirs(os.path.join(CURR_DIR, "results"), exist_ok=True)
 test_prediction_df.to_csv(os.path.join(CURR_DIR, 'results', 'test_prediction.csv'),index=None)
