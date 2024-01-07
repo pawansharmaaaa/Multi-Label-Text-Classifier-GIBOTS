@@ -6,5 +6,5 @@ train_opt.py
 *.h5
 *.keras
 train_fopt.py
-results
+/results*
 models
